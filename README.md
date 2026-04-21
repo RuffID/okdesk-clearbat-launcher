@@ -4,23 +4,18 @@
 
 ## Структура
 
-- `chrome/` - версия для Google Chrome.
-- `edge/` - версия для Microsoft Edge.
+- `chrome/` - версия для Google Chrome, Microsoft Edge и Яндекс Браузера.
 - `firefox/` - версия для Mozilla Firefox.
 
-## Загрузка в Chrome
+## Загрузка в Chrome/Edge/Yandex
 
-1. Открой `chrome://extensions/`.
+1. Открой страницу расширений:
+   - Chrome: `chrome://extensions/`;
+   - Edge: `edge://extensions/`;
+   - Яндекс Браузер: `browser://extensions/`.
 2. Включи режим разработчика.
-3. Нажми `Загрузить распакованное расширение`.
+3. Нажми `Загрузить распакованное расширение` или `Загрузить распакованное`.
 4. Выбери папку `chrome`.
-
-## Загрузка в Edge
-
-1. Открой `edge://extensions/`.
-2. Включи режим разработчика.
-3. Нажми `Загрузить распакованное`.
-4. Выбери папку `edge`.
 
 ## Загрузка в Firefox
 
