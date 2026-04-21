@@ -519,8 +519,12 @@
       return '';
     }
 
+    const urlValue = /^https?:\/\//i.test(normalizedValue)
+      ? normalizedValue
+      : `https://${normalizedValue}`;
+
     try {
-      const url = new URL(normalizedValue);
+      const url = new URL(urlValue);
       if ((url.protocol !== 'http:' && url.protocol !== 'https:') || !url.hostname || /[^\x00-\x7F]/.test(url.hostname)) {
         return '';
       }
