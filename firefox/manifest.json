@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Okdesk Clearbat Launcher",
+  "name": "Okdesk Clearbat Launcher Firefox",
   "version": "1.0.0",
   "description": "Добавляет кнопки запуска clearbat рядом с доступами оборудования в Okdesk.",
   "content_scripts": [
@@ -23,5 +23,10 @@
         "https://aqba.okdesk.ru/*"
       ]
     }
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "okdesk-clearbat-launcher@ruffid.local"
+    }
+  }
 }

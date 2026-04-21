@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Okdesk Clearbat Launcher Chrome",
+  "version": "1.0.0",
+  "description": "Добавляет кнопки запуска clearbat рядом с доступами оборудования в Okdesk.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://aqba.okdesk.ru/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*"
+      ],
+      "matches": [
+        "https://aqba.okdesk.ru/*"
+      ]
+    }
+  ]
+}
