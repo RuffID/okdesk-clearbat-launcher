@@ -318,7 +318,7 @@
       return null;
     }
 
-    const separatorIndex = normalizedValue.indexOf(ACCESS_VALUE_SEPARATOR);
+    const separatorIndex = normalizedValue.search(/[\/\\]/);
     if (separatorIndex < 0) {
       return requirePassword
         ? null
@@ -329,7 +329,7 @@
     }
 
     const login = normalizedValue.slice(0, separatorIndex);
-    const password = normalizedValue.slice(separatorIndex + ACCESS_VALUE_SEPARATOR.length);
+    const password = normalizedValue.slice(separatorIndex + 1);
     if (login.length === 0) {
       return null;
     }
