@@ -1,0 +1,507 @@
+/* Панель быстрого запуска на странице заявки Okdesk */
+#okdesk-ticket-launcher-panel.okdesk-tl-panel {
+  --okdesk-tl-border: #dfe3e8;
+  --okdesk-tl-muted: #6b7280;
+  --okdesk-tl-text: #1f2937;
+  --okdesk-tl-accent: #5b4b8a;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 110px);
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--okdesk-tl-border);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 32px rgba(17, 24, 39, 0.22);
+  color: var(--okdesk-tl-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+  z-index: 2147483647;
+  isolation: isolate;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-floating {
+  position: fixed;
+  top: 96px;
+  right: 20px;
+  width: 400px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 110px);
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: move;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-title-wrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #3d335f;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-context {
+  overflow: hidden;
+  color: var(--okdesk-tl-muted);
+  font-size: 11.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 4px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--okdesk-tl-border);
+  border-radius: 7px;
+  background: #ffffff;
+  color: #5d5478;
+  font: 600 16px/1 Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-action:hover,
+#okdesk-ticket-launcher-panel .okdesk-tl-action:focus-visible {
+  border-color: #b9adde;
+  background: #f4f1fb;
+  outline: none;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  margin-top: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-launch-status {
+  flex: 0 0 auto;
+  margin-top: 8px;
+  padding: 6px 8px;
+  border: 1px solid #c7e0c7;
+  border-radius: 7px;
+  background: #f1f9f1;
+  color: #2f6b34;
+  font-size: 11.5px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-settings {
+  flex: 0 0 auto;
+  margin-top: 8px;
+  padding: 6px 8px;
+  border: 1px solid #eceef2;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-settings[hidden] {
+  display: none;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-settings-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 11.5px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-icon-layout {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 24px;
+  padding: 1px 6px;
+  border: 1px solid #d7dbe2;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #374151;
+  font: 11px Arial, sans-serif;
+}
+
+/* Расположение иконок */
+#okdesk-ticket-launcher-panel.okdesk-tl-icons-right .okdesk-tl-row {
+  flex-wrap: nowrap;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-icons-right .okdesk-tl-row-info {
+  min-width: 0;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-icons-right .okdesk-tl-tools {
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-icons-bottom .okdesk-tl-row {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-icons-bottom .okdesk-tl-row-info {
+  width: 100%;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-icons-bottom .okdesk-tl-tools {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-collapsed .okdesk-tl-body {
+  display: none;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-collapsed .okdesk-tl-settings {
+  display: none;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-collapsed {
+  margin-bottom: 10px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  box-sizing: border-box;
+  min-height: 42px;
+  padding: 6px 8px;
+  border: 1px solid #eef0f3;
+  border-radius: 9px;
+  background: #fbfbfd;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row[data-kind="object"],
+#okdesk-ticket-launcher-panel .okdesk-tl-row[data-kind="client"] {
+  background: #f7f5fc;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row-info {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  gap: 1px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row-kind {
+  color: #8b849f;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row-name {
+  overflow: hidden;
+  color: var(--okdesk-tl-text);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row-error {
+  overflow: hidden;
+  color: #b42318;
+  font-size: 10.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row-empty {
+  color: #9aa1ac;
+  font-size: 10.5px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row-card-link {
+  align-self: flex-start;
+  color: #6b5aa0;
+  font-size: 10px;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-row-card-link:hover {
+  color: #4b3d7a;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-tools {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 2px;
+  border: 1px solid #e2e5ea;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-tool:hover:not(:disabled),
+#okdesk-ticket-launcher-panel .okdesk-tl-tool:focus-visible:not(:disabled) {
+  border-color: #8f7fc4;
+  background: #f7f4ff;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-tool:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-tool-disabled,
+#okdesk-ticket-launcher-panel .okdesk-tl-tool:disabled {
+  border-color: #eceef2;
+  background: #f6f7f9;
+  cursor: default;
+  opacity: 0.45;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-tool-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-tool-disabled .okdesk-tl-tool-icon,
+#okdesk-ticket-launcher-panel .okdesk-tl-tool:disabled .okdesk-tl-tool-icon {
+  filter: grayscale(1);
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-loading,
+#okdesk-ticket-launcher-panel .okdesk-tl-message {
+  padding: 4px 2px;
+  color: var(--okdesk-tl-muted);
+  font-size: 12px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-error {
+  color: #b42318;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-warning {
+  color: #9a6700;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-links {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-links a {
+  overflow: hidden;
+  color: #5b4b8a;
+  font-size: 11.5px;
+  text-decoration: underline;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-diagnostics {
+  flex: 0 0 auto;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eceef2;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-diagnostics-actions {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-diagnostics-button {
+  padding: 3px 8px;
+  border: 1px solid #d7dbe2;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #4b5563;
+  font: 11px Arial, sans-serif;
+  cursor: pointer;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-diagnostics-button:hover {
+  background: #f4f1fb;
+}
+
+#okdesk-ticket-launcher-panel .okdesk-tl-diagnostics pre {
+  box-sizing: border-box;
+  max-height: 220px;
+  margin: 0;
+  padding: 8px;
+  overflow: auto;
+  border: 1px solid #eceef2;
+  border-radius: 6px;
+  background: #fafafa;
+  color: #374151;
+  font: 10px/1.35 Consolas, "Courier New", monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Компактный вид */
+#okdesk-ticket-launcher-panel.okdesk-tl-compact {
+  width: 310px;
+  max-width: calc(100vw - 16px);
+  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.2);
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-header {
+  align-items: center;
+  gap: 8px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-title {
+  font-size: 12px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-context {
+  display: none;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-actions {
+  gap: 3px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-action {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-body {
+  gap: 3px;
+  margin-top: 6px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-row {
+  min-height: 30px;
+  padding: 3px 6px;
+  gap: 3px 8px;
+  border-radius: 7px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-row-kind,
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-row-card-link,
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-row-empty {
+  display: none;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-row-name {
+  font-size: 11.5px;
+  line-height: 1.25;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-row-error {
+  font-size: 9.5px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-tools {
+  gap: 3px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-tool {
+  width: 24px;
+  height: 24px;
+  padding: 1px;
+  border-radius: 6px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-launch-status {
+  margin-top: 5px;
+  padding: 4px 7px;
+  font-size: 10.5px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-settings {
+  margin-top: 5px;
+  padding: 4px 6px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-settings-label {
+  gap: 6px;
+  font-size: 10.5px;
+}
+
+#okdesk-ticket-launcher-panel.okdesk-tl-compact .okdesk-tl-icon-layout {
+  height: 22px;
+  font-size: 10.5px;
+}
+
+@media (max-width: 720px) {
+  #okdesk-ticket-launcher-panel .okdesk-tl-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #okdesk-ticket-launcher-panel .okdesk-tl-tools {
+    width: 100%;
+  }
+
+  #okdesk-ticket-launcher-panel .okdesk-tl-tool {
+    width: 34px;
+    height: 34px;
+  }
+}

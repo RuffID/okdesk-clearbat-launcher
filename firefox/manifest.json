@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Okdesk Clearbat Launcher Firefox",
-  "version": "1.2.0",
-  "description": "Добавляет кнопки запуска clearbat рядом с доступами оборудования в Okdesk.",
+  "version": "1.3.0",
+  "description": "Кнопки запуска iikoOffice/iikoChain и удаленного доступа (Ассистент/RustDesk/AnyDesk) на странице заявки Okdesk",
   "icons": {
     "16": "icons/okdesk-16.png",
     "32": "icons/okdesk-32.png",
@@ -13,10 +13,13 @@
     {
       "matches": [
         "https://aqba.okdesk.ru/*",
-		"https://help.aqba.ru/*"
+        "https://help.aqba.ru/*"
       ],
       "js": [
         "content.js"
+      ],
+      "css": [
+        "styles.css"
       ],
       "run_at": "document_idle"
     }
@@ -28,13 +31,14 @@
       ],
       "matches": [
         "https://aqba.okdesk.ru/*",
-		"https://help.aqba.ru/*"
+        "https://help.aqba.ru/*"
       ]
     }
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "okdesk-clearbat-launcher@ruffid.local"
+      "id": "okdesk-clearbat-launcher@ruffid.local",
+      "strict_min_version": "109.0"
     }
   }
 }
